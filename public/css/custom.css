@@ -1,0 +1,15 @@
+#anual_report_btn{
+    /* background-color: rgb(245, 158, 11)!important; */
+    color: #fff;
+    border-radius: inherit;
+
+    background-color: #212424;
+    padding: 3%;
+}
+#anual_report_btn:focus{
+    background-color: #000000;
+}
+#anual_report_year{
+   padding: 0.7rem 1.7rem;
+}
+
