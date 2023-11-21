@@ -16,4 +16,8 @@ class EditIncomeExpense extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+    protected function getTitle(): string
+    {
+        return __('Cashbook');
+    }
 }

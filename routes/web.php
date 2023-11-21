@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\TallyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,4 @@ Route::get('/', function () {
 
 
 Route::get('/pdf', [PdfController::class, 'index']);
+Route::get('/tally', [TallyController::class, 'index']);

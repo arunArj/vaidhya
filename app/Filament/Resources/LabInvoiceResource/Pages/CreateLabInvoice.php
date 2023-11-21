@@ -9,4 +9,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateLabInvoice extends CreateRecord
 {
     protected static string $resource = LabInvoiceResource::class;
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

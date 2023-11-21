@@ -13,4 +13,8 @@ class CreateIncomeExpense extends CreateRecord
     {
         return __('Cashbook');
     }
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }
