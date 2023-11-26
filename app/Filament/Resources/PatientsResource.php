@@ -40,6 +40,15 @@ class PatientsResource extends Resource
                     ->inline()
                     ->label('Sex ?')
                     ->required(),
+                Radio::make('user_type')
+                    ->options([
+                        '0' => 'Local',
+                        '1' => 'Indian',
+                        '2' => 'International'
+                    ])->default('0')
+                    ->inline()
+                    ->label('Patient From ?')
+                    ->required(),
                 TextInput::make('phone')
                     ->numeric()
                     ->required(),

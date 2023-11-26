@@ -26,7 +26,14 @@ class MedicalTestsResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('fee')
+                Forms\Components\TextInput::make('local_fee')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('indian_fee')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('int_fee')
+                    ->label('International Fee')
                     ->required()
                     ->maxLength(255),
             ]);

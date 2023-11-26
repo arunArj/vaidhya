@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('medical_tests', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('fee');
+            $table->string('local_fee');
+            $table->string('indian_fee');
+            $table->string('int_fee');
+
+
             $table->timestamps();
         });
     }

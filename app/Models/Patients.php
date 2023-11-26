@@ -9,14 +9,16 @@ class Patients extends Model
 {
     use HasFactory;
     protected $fillable = [
-       'name',
-       'age',
-       'sex',
-       'phone',
-       'mrd_no'
+        'name',
+        'age',
+        'sex',
+        'user_type',
+        'phone',
+        'mrd_no'
     ];
 
-    public function billing(){
+    public function billing()
+    {
         return $this->hasMany(Bills::class);
     }
 }

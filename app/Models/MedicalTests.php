@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MedicalTests extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'fee'];
+    protected $fillable = ['title', 'local_fee', 'indian_fee', 'int_fee'];
     public function labInvoice()
     {
         return $this->belongsToMany(User::class);

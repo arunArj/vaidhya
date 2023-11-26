@@ -15,6 +15,6 @@ class OPBill extends Model
     }
     public function tests()
     {
-        return $this->hasMany(MedicalTests::class);
+        return $this->belongsToMany(MedicalTests::class);
     }
 }
