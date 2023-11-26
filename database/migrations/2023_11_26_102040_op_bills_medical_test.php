@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\MedicalTests;
+use App\Models\OPBill;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,13 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('patients', function (Blueprint $table) {
+        Schema::create('op_bill_medical_tests', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('age');
-            $table->string('sex');
-            $table->string('phone');
-            $table->string('mrd_no');
+            $table->foreignIdFor(OPBill::class)->onDelete('cascade');
+            $table->foreignIdFor(MedicalTests::class)->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('patients');
+        //
     }
 };

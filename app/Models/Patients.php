@@ -11,8 +11,9 @@ class Patients extends Model
     protected $fillable = [
        'name',
        'age',
+       'sex',
        'phone',
-       'emp_code',
+       'mrd_no'
     ];
 
     public function billing(){

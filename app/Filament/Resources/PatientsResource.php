@@ -6,6 +6,7 @@ use App\Filament\Resources\PatientsResource\Pages;
 use App\Filament\Resources\PatientsResource\RelationManagers;
 use App\Models\Patients;
 use Filament\Forms;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -27,15 +28,24 @@ class PatientsResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                ->required(),
+                    ->required(),
                 TextInput::make('age')
-                ->required(),
+                    ->required(),
+                Radio::make('sex')
+                    ->options([
+                        '0' => 'Male',
+                        '1' => 'Female',
+                        '2' => 'Other'
+                    ])->default('0')
+                    ->inline()
+                    ->label('Sex ?')
+                    ->required(),
                 TextInput::make('phone')
-                ->numeric()
-                ->required(),
-                TextInput::make('emp_code')
-                ->label('Patient Code')
-                ->required(),
+                    ->numeric()
+                    ->required(),
+                TextInput::make('mrd_no')
+                    ->label('MRD Number')
+                    ->required(),
 
 
             ]);
@@ -49,7 +59,7 @@ class PatientsResource extends Resource
                 TextColumn::make('age'),
                 TextColumn::make('phone'),
                 TextColumn::make('emp_code')
-                ->label('Patient Code'),
+                    ->label('Patient Code'),
             ])
             ->filters([
                 //
