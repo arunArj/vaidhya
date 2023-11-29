@@ -20,5 +20,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/pdf', [PdfController::class, 'index']);
+Route::get('/pdf', [PdfController::class, 'index'])->name('pdf');
+Route::get('/opbill-pdf/{record}', [PdfController::class, 'opbill'])->name('op-invoice');
+Route::get('/ipbill-pdf/{record}', [PdfController::class, 'ipbill'])->name('ip-invoice');
 Route::get('/tally', [TallyController::class, 'index']);

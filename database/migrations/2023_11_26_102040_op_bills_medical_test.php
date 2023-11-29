@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('op_bill_medical_tests', function (Blueprint $table) {
+        Schema::create('medical_tests_o_p_bill', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(OPBill::class)->onDelete('cascade');
             $table->foreignIdFor(MedicalTests::class)->onDelete('cascade');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('medical_tests_o_p_bill');
     }
 };

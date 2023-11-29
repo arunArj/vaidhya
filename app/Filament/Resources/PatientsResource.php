@@ -2,16 +2,21 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\BookAppointmentsResource\RelationManagers\PatientsRelationManager;
 use App\Filament\Resources\PatientsResource\Pages;
 use App\Filament\Resources\PatientsResource\RelationManagers;
+use App\Filament\Resources\PatientsResource\RelationManagers\BookAppointmentRelationManager;
+use App\Models\BookAppointments;
 use App\Models\Patients;
 use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -28,7 +33,8 @@ class PatientsResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->required(),
+                    ->required()
+                  ,
                 TextInput::make('age')
                     ->required(),
                 Radio::make('sex')
@@ -54,6 +60,7 @@ class PatientsResource extends Resource
                     ->required(),
                 TextInput::make('mrd_no')
                     ->label('MRD Number')
+
                     ->required(),
 
 
@@ -64,17 +71,19 @@ class PatientsResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')->searchable(),
                 TextColumn::make('age'),
                 TextColumn::make('phone'),
-                TextColumn::make('emp_code')
-                    ->label('Patient Code'),
+                TextColumn::make('mrd_no')
+                ->searchable()
+                    ->label('MRD Number'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -84,7 +93,8 @@ class PatientsResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+          BookAppointmentRelationManager::class,
+
         ];
     }
 

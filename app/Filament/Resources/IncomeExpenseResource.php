@@ -23,6 +23,7 @@ class IncomeExpenseResource extends Resource
     protected static ?string $title = 'Custom Page Title';
     protected static ?string $navigationIcon = 'heroicon-o-collection';
     protected static ?string $navigationLabel = 'Cashbook';
+
     public static function form(Form $form): Form
     {
         return $form

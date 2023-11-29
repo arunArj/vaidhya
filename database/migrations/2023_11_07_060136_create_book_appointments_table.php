@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('book_appointments', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Patients::class)->onDelete('cascade');
-            $table->foreignIdFor(Doctors::class)->onDelete('cascade');
-            $table->string('invoice_no');
+            //$table->foreignIdFor(Doctors::class)->onDelete('cascade');
+            $table->string('opbill_no');
+            $table->date('visit_date');
             $table->string('fee');
             $table->timestamps();
         });

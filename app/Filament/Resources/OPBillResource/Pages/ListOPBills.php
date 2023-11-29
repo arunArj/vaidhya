@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\OPBillResource\Pages;
 
 use App\Filament\Resources\OPBillResource;
+use App\Filament\Resources\OPBillResource\Widgets\CashBook;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -20,4 +21,11 @@ class ListOPBills extends ListRecords
     {
         return __('IP Bill');
     }
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            CashBook::class
+        ];
+    }
+
 }

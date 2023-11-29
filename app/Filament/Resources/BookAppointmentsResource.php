@@ -4,9 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\BookAppointmentsResource\Pages;
 use App\Filament\Resources\BookAppointmentsResource\RelationManagers;
+use App\Filament\Resources\BookAppointmentsResource\RelationManagers\PatientsRelationManager;
 use App\Filament\Resources\BookAppointmentsResource\Widgets\AppointmentWidget;
 use App\Models\BookAppointments;
+use Closure;
 use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -28,11 +31,14 @@ class BookAppointmentsResource extends Resource
         return $form
             ->schema([
                 Select::make('patients_id')
-                ->relationship('patients','name'),
+                ->relationship('patients','mrd_no')
+                ->searchable()
+                ->preload(),
                 Select::make('doctors_id')
                 ->relationship('doctor','name'),
                 TextInput::make('fee'),
                 TextInput::make('invoice_no')->label('Bill Number'),
+
             ]);
     }
 
@@ -61,7 +67,7 @@ class BookAppointmentsResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PatientsRelationManager::class
         ];
     }
 

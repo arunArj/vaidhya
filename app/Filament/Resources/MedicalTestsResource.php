@@ -44,7 +44,9 @@ class MedicalTestsResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('fee'),
+                Tables\Columns\TextColumn::make('local_fee'),
+                Tables\Columns\TextColumn::make('indian_fee'),
+                Tables\Columns\TextColumn::make('int_fee'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')

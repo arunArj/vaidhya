@@ -54,7 +54,18 @@ class TallyController extends Controller
 
             // Get response body or other data if needed
             $body = $response->getBody();
-            return $body;
+            $xml = simplexml_load_string( $body );
+
+            // Convert SimpleXMLElement to JSON
+            $json = json_encode($xml);
+            $data = json_decode($json);
+            foreach($data->BODY->DATA->COLLECTION->LEDGER  as $key=> $item){
+                echo $item->{'LANGUAGENAME.LIST'}->{'NAME.LIST'}->NAME;
+            }
+            // Return JSON response
+            //return dd($data->body);
+           // return $data->BODY->DATA->COLLECTION->LEDGER;
+
             // Process the response as needed
         } catch (GuzzleHttp\Exception\RequestException $e) {
             // Handle exceptions if the request fails
