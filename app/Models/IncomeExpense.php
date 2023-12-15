@@ -12,9 +12,18 @@ class IncomeExpense extends Model
         'type',
         'purpose',
         'amount',
+        'payment_note',
+        'refund',
+        'refund_note',
+        'cashbookable_id',
+        'cashbookable_type',
         'category_id',
     ];
     public function category(){
         return $this->belongsTo(Category::class);
+    }
+    public function cashbookable()
+    {
+        return $this->morphTo();
     }
 }

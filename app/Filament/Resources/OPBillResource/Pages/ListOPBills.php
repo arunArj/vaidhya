@@ -14,7 +14,7 @@ class ListOPBills extends ListRecords
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()->label("New IP Bill"),
         ];
     }
     protected function getTitle(): string
@@ -24,7 +24,7 @@ class ListOPBills extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            CashBook::class
+           // CashBook::class
         ];
     }
 

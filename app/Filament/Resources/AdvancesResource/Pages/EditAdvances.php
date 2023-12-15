@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\DoctorsResource\Pages;
+namespace App\Filament\Resources\AdvancesResource\Pages;
 
-use App\Filament\Resources\DoctorsResource;
+use App\Filament\Resources\AdvancesResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditDoctors extends EditRecord
+class EditAdvances extends EditRecord
 {
-    protected static string $resource = DoctorsResource::class;
+    protected static string $resource = AdvancesResource::class;
 
     protected function getActions(): array
     {

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\FeesResource\Pages;
+namespace App\Filament\Resources\AdvancesResource\Pages;
 
-use App\Filament\Resources\FeesResource;
+use App\Filament\Resources\AdvancesResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListFees extends ListRecords
+class ListAdvances extends ListRecords
 {
-    protected static string $resource = FeesResource::class;
+    protected static string $resource = AdvancesResource::class;
 
     protected function getActions(): array
     {

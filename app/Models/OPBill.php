@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class OPBill extends Model
 {
     use HasFactory;
-    protected $fillable = ['patients_id', 'ip_number', 'gst_no','total',
-    'room_no', 'bill_no', 'do_admission', 'do_discharge','room_rent','admission_fee','consultaion_fee','pshysio','nursing_fee'
+    protected $fillable = ['patients_id', 'ip_number',
+    'room_no', 'bill_no', 'do_admission', 'do_discharge','fees','total'
     ];
     public function patients()
     {
@@ -19,8 +19,11 @@ class OPBill extends Model
     {
         return $this->belongsToMany(MedicalTests::class);
     }
-    public function fees()
+    protected $casts = [
+        'fees' => 'array', // optional: specify if your JSON data has specific structure
+    ];
+    public function cashbook()
     {
-        return $this->belongsToMany(Fees::class);
+        return $this->morphOne(IncomeExpense::class, 'cashbookable');
     }
 }

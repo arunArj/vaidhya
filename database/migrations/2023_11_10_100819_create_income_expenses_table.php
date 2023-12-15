@@ -16,7 +16,12 @@ return new class extends Migration
             $table->id();
             $table->boolean('type');
             $table->string('purpose');
-            $table->string('amount');
+            $table->string('amount')->default(0);
+            $table->string('payment_note')->nullable();
+            $table->string('refund')->nullable();
+            $table->string('refund_note')->nullable();
+            $table->integer('cashbookable_id')->nullable();
+            $table->string('cashbookable_type')->nullable();
             $table->foreignIdFor(Category::class)->onDelete('cascade');
             $table->timestamps();
         });

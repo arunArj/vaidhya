@@ -18,14 +18,9 @@ return new class extends Migration
             $table->string("ip_number");
             $table->string("do_admission");
             $table->string("do_discharge");
-            $table->string("gst_no");
             $table->string("room_no");
             $table->string("bill_no");
-            $table->string("room_rent");
-            $table->string("admission_fee");
-            $table->string("consultaion_fee");
-            $table->string("pshysio");
-            $table->string("nursing_fee");
+            $table->string("fees");
             $table->string("total");
             $table->timestamps();
         });

@@ -5,12 +5,16 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BookAppointmentsResource\RelationManagers\PatientsRelationManager;
 use App\Filament\Resources\PatientsResource\Pages;
 use App\Filament\Resources\PatientsResource\RelationManagers;
+use App\Filament\Resources\PatientsResource\RelationManagers\AdvancesRelationManager;
 use App\Filament\Resources\PatientsResource\RelationManagers\BookAppointmentRelationManager;
 use App\Models\BookAppointments;
 use App\Models\Patients;
+use Carbon\Carbon;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -35,7 +39,7 @@ class PatientsResource extends Resource
                 TextInput::make('name')
                     ->required()
                   ,
-                TextInput::make('age')
+                  DatePicker::make('date_of_birth')
                     ->required(),
                 Radio::make('sex')
                     ->options([
@@ -56,11 +60,16 @@ class PatientsResource extends Resource
                     ->label('Patient From ?')
                     ->required(),
                 TextInput::make('phone')
-                    ->numeric()
                     ->required(),
-                TextInput::make('mrd_no')
-                    ->label('MRD Number')
-
+                TextInput::make('mrd_no'),
+                TextInput::make('advance')
+                    ->label('Advance')
+                    ->required(),
+                TextInput::make('refund')
+                        ->label('Refund')
+                        ->required(),
+                Textarea::make('address')
+                    ->label('Address')
                     ->required(),
 
 
@@ -72,7 +81,11 @@ class PatientsResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')->searchable(),
-                TextColumn::make('age'),
+                TextColumn::make('dob'),
+                TextColumn::make('age')
+                ->formatStateUsing(function ($record) {
+                   return Carbon::parse($record->dob)->age;
+                })->label('age'),
                 TextColumn::make('phone'),
                 TextColumn::make('mrd_no')
                 ->searchable()
@@ -83,6 +96,7 @@ class PatientsResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
 
             ])
             ->bulkActions([
@@ -93,8 +107,8 @@ class PatientsResource extends Resource
     public static function getRelations(): array
     {
         return [
-          BookAppointmentRelationManager::class,
-
+          //BookAppointmentRelationManager::class,
+          AdvancesRelationManager::class
         ];
     }
 
@@ -103,6 +117,7 @@ class PatientsResource extends Resource
         return [
             'index' => Pages\ListPatients::route('/'),
             'create' => Pages\CreatePatients::route('/create'),
+            'view' => Pages\ViewPatients::route('/{record}'),
             'edit' => Pages\EditPatients::route('/{record}/edit'),
         ];
     }

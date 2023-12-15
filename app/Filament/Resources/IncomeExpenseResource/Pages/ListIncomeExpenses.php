@@ -13,7 +13,7 @@ class ListIncomeExpenses extends ListRecords
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()->label('New Recoord'),
         ];
     }
     protected function getTitle(): string

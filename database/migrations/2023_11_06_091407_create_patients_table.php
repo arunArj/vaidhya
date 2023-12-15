@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('age');
+            $table->date('dob');
             $table->string('sex');
             $table->string('user_type');
             $table->string('phone');
             $table->string('mrd_no');
+            $table->text('address');
+            $table->decimal('advance', 8, 2);
+            $table->decimal('refund', 8, 2);
             $table->timestamps();
         });
     }
