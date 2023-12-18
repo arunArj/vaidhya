@@ -64,15 +64,16 @@ class CreateOPBill extends CreateRecord
         foreach($this->record->fees as $key=>$item){
             $total = $total +( $item['fee']*$item['quantity']);
         }
-        if($this->record->refund){
-            $total = $total - $this->record->refund;
+        if($this->data['refund']){
+            $total = $total - $this->data['refund'];
         }
+//dd($total,$total,$this->data['refund']);
         IncomeExpense::create([
             'type' => 0,
             'purpose' => 'ipbill-'.$this->record->bill_no,
             'amount' => $total,
             'payment_note' => $this->record->payment_note,
-            'refund' => $this->record->refund,
+            'refund' => $this->data['refund'],
             'refund_note' => $this->record->refund_note,
             'cashbookable_id' => $this->record->id,
             'cashbookable_type' => 'App\Models\OPBill',

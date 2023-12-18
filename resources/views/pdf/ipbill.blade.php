@@ -50,50 +50,25 @@
                 <tr>
                     <th>SL NO </th>
                     <th>Particulars</th>
-                    <th>Amount</th>
+                    <th>Quantity</th>
+                    <th>Fee</th>
                 </tr>
             </thead>
             <tbody >
-                <tr style="border-bottom: 1px solid black;">
-                   <td style="text-align: center    ">1</td>
-                   <td style="text-align: center    ">Admission Fee</td>
-                   <td style="text-align: center    ">{{$admission_fee}}</td>
-                </tr>
-                <tr style="border-bottom: 1px solid black;">
-                    <td style="text-align: center ">2</td>
-                    <td style="text-align: center    ">Room Rent</td>
-                    <td style="text-align: center    ">{{$room_rent}}</td>
-                 </tr>
-                 <tr style="border-bottom: 1px solid black;">
-                    <td style="text-align: center    ">3</td>
-                    <td style="text-align: center    ">Consultaion Fee</td>
-                    <td style="text-align: center    ">{{$consultaion_fee}}</td>
-                 </tr>
-                 <tr style="border-bottom: 1px solid black;">
-                    <td style="text-align: center    ">4</td>
-                    <td style="text-align: center    ">Nursing Fee</td>
-                    <td style="text-align: center    ">{{$nursing_fee}}</td>
-                 </tr>
-                 <tr style="border-bottom: 1px solid black;">
-                    <td style="text-align: center    ">5</td>
-                    <td style="text-align: center    ">Physiotherapy</td>
-                    <td style="text-align: center    ">{{$pshysio}}</td>
-                 </tr>
-                 <tr style="border-bottom: 1px solid black;">
-                    <th colspan="3" style="text-align: center">PanchaKarma treatments</th>
+                @foreach ($fees as $key=>$item)
 
-                 </tr>
-                 @foreach ($tests as $key =>$item)
 
-                 <tr style="border-bottom: 1px solid black;">
-                    <td style="text-align: center    ">{{$key++}}</td>
-                    <td style="text-align: center    ">{{$item['title']}}</td>
-                    <td style="text-align: center    ">{{$item['fee']}}</td>
+                <tr style="border-bottom: 1px solid black;">
+                   <td style="text-align: center    ">{{++$key}}</td>
+                   <td style="text-align: center    ">{{$item['title']}}</td>
+                   <td style="text-align: center    ">{{$item['quantity']}}</td>
+                   <td style="text-align: center    ">{{$item['fee']}}</td>
                 </tr>
                 @endforeach
+
                 <tr style="border-bottom: 1px solid black;">
                     <td colspan="2" style="text-align: center    ">Grand Total :</td>
-                    <td style="text-align: center    ">{{$total}}</td>
+                    <td style="text-align: center" colspan="2">{{$total}}</td>
                 </tr>
             </tbody>
         </table>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BookAppointments;
+use App\Models\MedicalTests;
 use App\Models\OPBill;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -68,7 +69,14 @@ class PdfController extends Controller
         else{
             $sex ='Other';
         }
-        // Find the difference in days
+        $fees =[];
+        foreach($record->fees as $key=>$item){
+            $test = MedicalTests::find($item['medical_tests_id']);
+          $fees[$key]['title'] =$test->title;
+          $fees[$key]['quantity'] =$record->fees[$key]['quantity'];
+          $fees[$key]['fee'] =$record->fees[$key]['fee'];
+
+        }
         $diffInDays = $endDate->diffInDays($startDate);
         $data=[
             'id'=>$record->id,
@@ -77,35 +85,34 @@ class PdfController extends Controller
             'sex'=>$sex,
             'phone'=>$record->patients->phone,
             'room'=>$record->room_no,
-            'room_rent'=>$diffInDays*$record->room_rent,
+
             'ip_number'=>$record->ip_number,
-            'gst_no'=>$record->gst_no,
+            'gst_no'=>'3242342342343233',
             'do_admission'=>$record->do_admission,
             'do_discharge'=>$record->do_discharge,
             'bill_no'=>$record->bill_no,
-            'admission_fee'=>$record->admission_fee,
-            'consultaion_fee'=>$record->consultaion_fee,
-            'pshysio'=>$record->pshysio,
-            'nursing_fee'=>$record->nursing_fee,
             'date'=>$record->created_at,
+            'fees'=>$fees,
             'total'=>$record->total,
+            'refund'=>$record->cashbook->refund,
+            'amount'=>$record->cashbook->amount,
         ];
-        $fees=[];
-        foreach($record->tests as $item){
-            if($record->patients->user_type == '0'){
-                $fee= $item->local_fee;
-            }
-            else if($record->patients->user_type == '1'){
-                $fee= $item->indian_fee;
-            }else{
-                $fee= $item->int_fee;
-            }
-          $fees[]=[
-            'title'=>$item->title,
-            'fee'=>$fee
-          ];
-        }
-        $data['tests'] = $fees;
+
+        // foreach($record->tests as $item){
+        //     if($record->patients->user_type == '0'){
+        //         $fee= $item->local_fee;
+        //     }
+        //     else if($record->patients->user_type == '1'){
+        //         $fee= $item->indian_fee;
+        //     }else{
+        //         $fee= $item->int_fee;
+        //     }
+        //   $fees[]=[
+        //     'title'=>$item->title,
+        //     'fee'=>$fee
+        //   ];
+        // }
+        //$data['tests'] = $fees;
         $pdf = App::make('dompdf.wrapper');
         $pdf = $pdf->loadView('pdf.ipbill',$data);
         return $pdf->stream();
