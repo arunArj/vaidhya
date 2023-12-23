@@ -7,6 +7,7 @@ use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Closure;
 use Filament\Forms;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -18,6 +19,7 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
@@ -35,7 +37,15 @@ class CategoryResource extends Resource
                TextInput::make('slug'),
                Select::make('parent')
                ->relationship('category','title')
-               ->label('Parent')
+               ->label('Parent'),
+               Select::make('type')
+               ->label('Type')
+               ->options([
+                '0' => 'Assets',
+                '1' => 'Income',
+                '2' => 'Expense',
+                '3' => 'Liability'
+            ])
 
             ]);
     }
@@ -56,6 +66,7 @@ class CategoryResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                ExportBulkAction::make()
             ]);
     }
 

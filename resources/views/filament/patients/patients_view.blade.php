@@ -11,10 +11,11 @@
     @php
         $relationManagers = $this->getRelationManagers();
             $advanceSum=0;
-            $refundSum=0;
+           // $refundSum=0;
+
             foreach ($record->advances as $key => $value) {
                 $advanceSum += $value->cashbook->amount;
-                $refundSum += $value->cashbook->refund;
+              //  $refundSum += $value->cashbook->refund;
             }
     @endphp
 <div class="grid grid-cols-12 gap-4">
@@ -23,12 +24,12 @@
         <div class="bg-white rounded-lg shadow-md p-6 mb-6">
           <div class="flex items-center justify-between mb-4">
             <div>
-              <h2 class="text-xl font-semibold">John Doe</h2>
-              <p class="text-gray-600">MRD Number: 426614174000</p>
+              <h2 class="text-xl font-semibold">{{$record->name}}</h2>
+              <p class="text-gray-600">{{$record->mrd_no}}</p>
             </div>
             <div>
-              <p class="text-gray-600">Age: 35</p>
-              <p class="text-gray-600">Gender: Male</p>
+              <p class="text-gray-600">Age: {{$record->getAgeAttribute()}}</p>
+              <p class="text-gray-600">Gender: {{$record->getGenderAttribute()}}</p>
             </div>
           </div>
           <hr class="my-4 border-t-2 border-gray-300">
@@ -38,21 +39,21 @@
 
             <div>
                 <p class="text-gray-600 font-semibold">Recidency</p>
-                <p class="text-gray-800">Local</p>
+                <p class="text-gray-800">{{$record->getRecidencyAttribute()}}</p>
             </div>
 
 
             <div>
               <p class="text-gray-600 font-semibold">Phone</p>
-              <p class="text-gray-800">(123) 456-7890</p>
+              <p class="text-gray-800">{{$record->phone}}</p>
             </div>
             <div>
               <p class="text-gray-600 font-semibold">Date of Birth</p>
-              <p class="text-gray-800">1988-05-23</p>
+              <p class="text-gray-800">{{$record->dob}}</p>
             </div>
             <div>
                 <p class="text-gray-600 font-semibold">Address</p>
-                <p class="text-gray-800">123 Main St, City, Country</p>
+                <p class="text-gray-800">{{$record->address}}</p>
               </div>
           </div>
         </div>
@@ -92,10 +93,10 @@
                 <span class="text-gray-500 text-sm">Amount:</span>
                 <span class="text-gray-800">{{ $advanceSum}}</span>
               </div>
-              <div class="flex justify-between">
+              {{-- <div class="flex justify-between">
                 <span class="text-gray-500 text-sm">Refund:</span>
                 <span class="text-gray-800">{{$refundSum}}</span>
-              </div>
+              </div> --}}
             </li>
             <li class="py-3">
               <a href="/performa-bill" class="block text-blue-500 font-semibold hover:underline">

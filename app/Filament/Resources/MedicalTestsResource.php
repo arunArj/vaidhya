@@ -18,7 +18,7 @@ class MedicalTestsResource extends Resource
     protected static ?string $model = MedicalTests::class;
     protected static ?string $navigationGroup = 'Settings';
     protected static ?string $navigationIcon = 'heroicon-o-collection';
-
+    protected static ?string $navigationLabel = 'Fees & Panja karma';
     public static function form(Form $form): Form
     {
         return $form

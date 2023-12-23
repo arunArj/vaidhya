@@ -9,7 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListIncomeExpenses extends ListRecords
 {
     protected static string $resource = IncomeExpenseResource::class;
-
+    protected static string $view = 'filament.cashbook.list_cashbook';
     protected function getActions(): array
     {
         return [

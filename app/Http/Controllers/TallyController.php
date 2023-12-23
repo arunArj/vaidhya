@@ -27,7 +27,7 @@ class TallyController extends Controller
                <TALLYREQUEST>EXPORT</TALLYREQUEST>
 
                <TYPE>COLLECTION</TYPE>
-               <ID >List of Ledgers</ID>
+               <ID >List of Groups</ID>
 
         </HEADER>
 
@@ -36,7 +36,7 @@ class TallyController extends Controller
         <DESC>
 
             <STATICVARIABLES>
-            <SVEXPORTFORMAT>$$SysName:XML</SVEXPORTFORMAT>
+            <SVEXPORTFORMAT>$$SysName:HTML</SVEXPORTFORMAT>
             </STATICVARIABLES>
         </DESC>
         </BODY>
@@ -47,21 +47,22 @@ class TallyController extends Controller
             // Send a POST request with XML data
             $response = $client->post($url, [
                 'headers' => [
-                    'Content-Type' => 'application/xml',
+                    'Content-Type' => 'application/html',
                 ],
                 'body' => $xmlData,
             ]);
 
             // Get response body or other data if needed
             $body = $response->getBody();
-            $xml = simplexml_load_string( $body );
+            return $body;
+            // $xml = simplexml_load_string( $body );
 
-            // Convert SimpleXMLElement to JSON
-            $json = json_encode($xml);
-            $data = json_decode($json);
-            foreach($data->BODY->DATA->COLLECTION->LEDGER  as $key=> $item){
-                echo $item->{'LANGUAGENAME.LIST'}->{'NAME.LIST'}->NAME;
-            }
+            // // Convert SimpleXMLElement to JSON
+            // $json = json_encode($xml);
+            // $data = json_decode($json);
+            // foreach($data->BODY->DATA->COLLECTION->LEDGER  as $key=> $item){
+            //     echo $item->{'LANGUAGENAME.LIST'}->{'NAME.LIST'}->NAME;
+            // }
             // Return JSON response
             //return dd($data->body);
            // return $data->BODY->DATA->COLLECTION->LEDGER;

@@ -10,7 +10,5 @@ class ViewPatients extends ViewRecord
 {
     protected static string $view = 'filament.patients.patients_view';
     protected static string $resource = PatientsResource::class;
-    public function getrecordd(){
-        dd($this->record);
-    }
+
 }

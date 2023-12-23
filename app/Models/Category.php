@@ -12,6 +12,7 @@ class Category extends Model
         'title',
         'slug',
         'parent',
+        'type'
     ];
     public function incomeExpense(){
         return $this->hasMany(IncomeExpense::class);

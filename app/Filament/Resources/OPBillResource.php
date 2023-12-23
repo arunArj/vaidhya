@@ -54,22 +54,13 @@ class OPBillResource extends Resource
                 ################################################################
                 DatePicker::make('do_admission')
                 ->reactive()
-                ->afterStateUpdated(function (Closure $set,$get, $state) {
-                   // if($state== null)
-                    $set('room_rent',null);
-                })
                 ->label('Date of Admission')->required(),
                 DatePicker::make('do_discharge')->label('Date of Discharge')
-
                 ->minDate(function (Closure $get,$set) {
                     $startDate = $get('do_admission');
                     return $startDate;
                 })
                 ->reactive()
-                ->afterStateUpdated(function (Closure $set,$get, $state) {
-                    //if($state== null)
-                    $set('room_rent',null);
-                })
                 ->required(),
 
                 Card::make()
@@ -107,8 +98,9 @@ class OPBillResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('patients.name')->label('Name'),
-                Tables\Columns\TextColumn::make('patients.mrd_no')->label('MRD Number'),
+                Tables\Columns\TextColumn::make('patients.name')->label('Name')->searchable(),
+                Tables\Columns\TextColumn::make('patients.mrd_no')->label('MRD Number')
+                ->searchable(),
 
                 Tables\Columns\TextColumn::make('bill_no'),
                 Tables\Columns\TextColumn::make('ip_number'),

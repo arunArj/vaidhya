@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Patients;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +14,14 @@ return new class extends Migration
     {
         Schema::create('performa_bills', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Patients::class)->onDelete('cascade');
+            $table->string("ip_number");
+            $table->string("from_date");
+            $table->string("to_date");
+            $table->string("room_no");
+            $table->string("bill_no");
+            $table->string("fees");
+            $table->string("total");
             $table->timestamps();
         });
     }

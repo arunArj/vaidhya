@@ -10,7 +10,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListOPBills extends ListRecords
 {
     protected static string $resource = OPBillResource::class;
-
+    protected static string $view = 'filament.opbills.list_opbills';
     protected function getActions(): array
     {
         return [
@@ -27,5 +27,6 @@ class ListOPBills extends ListRecords
            // CashBook::class
         ];
     }
+
 
 }

@@ -25,10 +25,7 @@ class Patients extends Model
     // {
     //     return $this->hasMany(Bills::class);
     // }
-    public function bookAppointment(){
 
-        return $this->hasMany(BookAppointments::class);
-    }
     public function advances(){
 
         return $this->hasMany(Advances::class);
@@ -43,6 +40,44 @@ class Patients extends Model
             return Carbon::parse($this->dob)->age;
         }
 
+        return null; // Or handle the case where date_of_birth is not set
+    }
+    public function getGenderAttribute()
+    {
+        if ($this->sex==null) {
+            return null;
+        }
+        switch($this->sex){
+            case '0' :
+                return 'Male';
+                break;
+            case '1' :
+                return 'Female';
+                break;
+            case '2' :
+                return 'Other';
+                break;
+
+        }
+        return null; // Or handle the case where date_of_birth is not set
+    }
+    public function getRecidencyAttribute()
+    {
+        if ($this->user_type==null) {
+            return null;
+        }
+        switch($this->sex){
+            case '0' :
+                return 'Local';
+                break;
+            case '1' :
+                return 'Indian';
+                break;
+            case '2' :
+                return 'International';
+                break;
+
+        }
         return null; // Or handle the case where date_of_birth is not set
     }
 }

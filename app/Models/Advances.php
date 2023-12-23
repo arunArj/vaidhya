@@ -9,7 +9,7 @@ class Advances extends Model
 {
     use HasFactory;
     protected $fillable = ['patients_id'];
-    public function patient(){
+    public function patients(){
         return $this->belongsTo(Patients::class,'patients_id');
     }
     public function cashbook()

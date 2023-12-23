@@ -28,8 +28,9 @@ class AdvancesResource extends Resource
         return $form
             ->schema([
                 Select::make('patients_id')
-                    ->relationship('patient', 'mrd_no')
+                    ->relationship('patients', 'mrd_no')
                     ->searchable()
+                    ->required()
                     ->placeholder('Enter patient MRD number')
                     ->preload()
                     ->reactive(),
@@ -37,11 +38,8 @@ class AdvancesResource extends Resource
                     ->relationship('cashbook')
                     ->schema([
                         Select::make('category_id')
-                        ->options([
-                            '1' => 'Bills',
-
-                        ])->default('1')
-                        ->disabled()
+                        ->relationship('category','title')
+                        ->default('Direct Income')
                         ->label('Category')
                         ->required(),
                         Forms\Components\TextInput::make('purpose')
@@ -79,8 +77,8 @@ class AdvancesResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('patient.name')->label('Patient')->searchable(),
-                Tables\Columns\TextColumn::make('patient.mrd_no')->label('MRD NO')->searchable(),
+                Tables\Columns\TextColumn::make('patients.name')->label('Patient')->searchable(),
+                Tables\Columns\TextColumn::make('patients.mrd_no')->label('MRD NO')->searchable(),
                 Tables\Columns\TextColumn::make('cashbook.amount')->label('Advance'),
                 Tables\Columns\TextColumn::make('cashbook.payment_note')->label('Payment Note'),
                 Tables\Columns\TextColumn::make('cashbook.refund')->label('Refund'),

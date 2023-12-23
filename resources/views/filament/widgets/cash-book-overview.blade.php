@@ -1,19 +1,22 @@
 <x-filament::widget>
     <x-filament::card>
 
-    <form class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between mb-4">
-        <div class="mb-4 sm:flex-1 sm:mr-4">
-          <label for="fromDate" class="block text-sm font-medium text-gray-700">From Date</label>
-          <input type="date" id="fromDate" name="fromDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+
+        <div class="grid gap-4 lg:gap-8 md:grid-cols-3">
+            <div class="mb-4 sm:flex-1 sm:mr-4">
+                <label for="fromDate" class="block text-sm font-medium text-gray-700">From Date </label>
+                <input type="date" id="fromDate" name="fromDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+              </div>
+              <div class="mb-4 sm:flex-1 sm:ml-4">
+                <label for="toDate" class="block text-sm font-medium text-gray-700">To Date</label>
+                <input type="date"  id="toDate" name="toDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+              </div>
+              <div class="mt-4 flex-1 sm:mt-0">
+                <label class="block text-sm font-medium text-gray-700"></label>
+                <button wire:click="dashboardData" type="submit" style="margin-top: 8px!important;" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-black bg-primary-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Submit</button>
+              </div>
         </div>
-        <div class="mb-4 sm:flex-1 sm:ml-4">
-          <label for="toDate" class="block text-sm font-medium text-gray-700">To Date</label>
-          <input type="date" id="toDate" name="toDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-        </div>
-        <div class="mt-4 sm:mt-0">
-          <button type="submit" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Submit</button>
-        </div>
-      </form>
+
 
       <div class="border-t mt-6 pt-6">
 

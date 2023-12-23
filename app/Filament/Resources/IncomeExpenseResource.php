@@ -17,14 +17,18 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class IncomeExpenseResource extends Resource
 {
     protected static ?string $model = IncomeExpense::class;
-    protected static ?string $title = 'Custom Page Title';
+
     protected static ?string $navigationIcon = 'heroicon-o-collection';
     protected static ?string $navigationLabel = 'Cashbook';
-
+    public static function canCreate(): bool
+    {
+        return false;
+    }
     public static function form(Form $form): Form
     {
         return $form
@@ -73,6 +77,7 @@ class IncomeExpenseResource extends Resource
                 Tables\Columns\TextColumn::make('amount'),
                 Tables\Columns\TextColumn::make('category.title'),
                 Tables\Columns\TextColumn::make('purpose')->label('Sub Category'),
+                Tables\Columns\TextColumn::make('cashbookable.patients.name')->label('Patient'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -83,13 +88,16 @@ class IncomeExpenseResource extends Resource
                 ->options([
                     '0' => 'Income',
                     '1' => 'Expense',
-                ])
+                ]),
+                SelectFilter::make('category')->relationship('category', 'title')
+                ->multiple()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                ExportBulkAction::make()
             ]);
     }
 
@@ -108,14 +116,14 @@ class IncomeExpenseResource extends Resource
             'edit' => Pages\EditIncomeExpense::route('/{record}/edit'),
         ];
     }
-    protected function getTableRecordClassesUsing(): ?Closure
-    {
-        return fn (Model $record) => match ($record->type) {
-            'Expense' => 'border-green-600',
-            1 => 'border-orange-600',
-            default => null,
-        };
-    }
+    // protected function getTableRecordClassesUsing(): ?Closure
+    // {
+    //     return fn (Model $record) => match ($record->type) {
+    //         'Expense' => 'border-green-600',
+    //         1 => 'border-orange-600',
+    //         default => null,
+    //     };
+    // }
 
 
 }

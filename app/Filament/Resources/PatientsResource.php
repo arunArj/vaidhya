@@ -7,6 +7,7 @@ use App\Filament\Resources\PatientsResource\Pages;
 use App\Filament\Resources\PatientsResource\RelationManagers;
 use App\Filament\Resources\PatientsResource\RelationManagers\AdvancesRelationManager;
 use App\Filament\Resources\PatientsResource\RelationManagers\BookAppointmentRelationManager;
+use App\Filament\Resources\PatientsResource\RelationManagers\OPBillRelationManager;
 use App\Models\BookAppointments;
 use App\Models\Patients;
 use Carbon\Carbon;
@@ -108,7 +109,8 @@ class PatientsResource extends Resource
     {
         return [
           //BookAppointmentRelationManager::class,
-          AdvancesRelationManager::class
+          AdvancesRelationManager::class,
+          OPBillRelationManager::class
         ];
     }
 

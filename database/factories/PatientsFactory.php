@@ -20,7 +20,7 @@ class PatientsFactory extends Factory
         return [
             'name' => fake()->name,
             'dob' => fake()->date,
-            'sex' => fake()->randomElement(['male', 'female']),
+            'sex' => fake()->randomElement(['0', '1']),
             'user_type' => fake()->randomElement(['0', '1','2']),
             'phone' => fake()->phoneNumber,
             'mrd_no' => fake()->word(1),
