@@ -51,33 +51,42 @@ class CreateOPBill extends CreateRecord
         $out[] =['medical_tests_id'=>$tests->id,'quantity'=>$this->data['fees'][$key]['quantity'],'fee'=>$fee];
        }
        $this->data['fees'] = $out;
-       $this->data['total'] =  $sum ;
+       $this->data['cashbook']['amount'] =  $sum - $this->data['cashbook']['refund'] ;
+       $this->data['total'] =  $sum;
+       $this->data['cashbook']['purpose'] = 'ipbill-'.$this->data['bill_no'];
 
    return $this->data;
 
     }
     protected function afterCreate()
     {
-        $id = $this->record->id;
-        $total=0;
+        $this->record->cashbook->purpose = 'ipbill-'.$this->record->bill_no;
+        $this->record->cashbook->amount = $this->record->total;
+        if($this->record->cashbook->refund){
+            $this->record->cashbook->amount =  $this->record->total - $this->record->cashbook->refund;
+        }
 
-        foreach($this->record->fees as $key=>$item){
-            $total = $total +( $item['fee']*$item['quantity']);
-        }
-        if($this->data['refund']){
-            $total = $total - $this->data['refund'];
-        }
-//dd($total,$total,$this->data['refund']);
-        IncomeExpense::create([
-            'type' => 0,
-            'purpose' => 'ipbill-'.$this->record->bill_no,
-            'amount' => $total,
-            'payment_note' => $this->record->payment_note,
-            'refund' => $this->data['refund'],
-            'refund_note' => $this->record->refund_note,
-            'cashbookable_id' => $this->record->id,
-            'cashbookable_type' => 'App\Models\OPBill',
-            'category_id' => '1',
-        ]);
+        $this->record->cashbook->save();
+//         $id = $this->record->id;
+//         $total=0;
+
+//         foreach($this->record->fees as $key=>$item){
+//             $total = $total +( $item['fee']*$item['quantity']);
+//         }
+//         if($this->data['refund']){
+//             $total = $total - $this->data['refund'];
+//         }
+// //dd($total,$total,$this->data['refund']);
+//         IncomeExpense::create([
+//             'type' => 0,
+//             'purpose' => 'ipbill-'.$this->record->bill_no,
+//             'amount' => $total,
+//             'payment_note' => $this->record->payment_note,
+//             'refund' => $this->data['refund'],
+//             'refund_note' => $this->record->refund_note,
+//             'cashbookable_id' => $this->record->id,
+//             'cashbookable_type' => 'App\Models\OPBill',
+//             'category_id' =>  11,
+//         ]);
     }
 }

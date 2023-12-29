@@ -42,6 +42,14 @@ class Patients extends Model
 
         return null; // Or handle the case where date_of_birth is not set
     }
+    public function getTotalIPBillAmount()
+    {
+        return $this->opbill()
+            ->with('cashbook')
+            ->get()
+            ->pluck('cashbook.amount')
+            ->sum();
+    }
     public function getGenderAttribute()
     {
         if ($this->sex==null) {

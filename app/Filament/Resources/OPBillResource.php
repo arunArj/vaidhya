@@ -6,6 +6,7 @@ use Filament\Forms\Components\Select;
 use App\Filament\Resources\OPBillResource\Pages;
 use App\Filament\Resources\OPBillResource\RelationManagers;
 use App\Filament\Resources\OPBillResource\Widgets\CashBook;
+use App\Models\Category;
 use App\Models\MedicalTests;
 use App\Models\OPBill;
 use Carbon\Carbon;
@@ -50,7 +51,6 @@ class OPBillResource extends Resource
                 TextInput::make('bill_no')->label('Bill Number')->required(),
                 TextInput::make('ip_number')->label('IP Number')->required(),
 
-
                 ################################################################
                 DatePicker::make('do_admission')
                 ->reactive()
@@ -85,11 +85,36 @@ class OPBillResource extends Resource
                         ]),
                         Card::make()
                         ->schema([
-                            TextInput::make('refund')->nullable(),
-                            TextInput::make('refund_note')
-                            ->label('Refound note')
-                            ->nullable(),
-                            TextInput::make('payment_note')->nullable(),
+                            Fieldset::make('payment')
+                            ->relationship('cashbook')
+                            ->schema([
+                                TextInput::make('refund')->nullable(),
+                                Select::make('type')
+                                ->options(
+                                    [
+                                        '0'=>'Income'
+                                    ]
+                                )
+                                ->disabled()
+                                ->default(0)
+                                ->required(),
+                                TextInput::make('refund_note')
+                                ->label('Refound note')
+                                ->nullable(),
+                                TextInput::make('payment_note')->nullable(),
+                                TextInput::make('purpose')->default('ip5'),
+                                TextInput::make('amount')->hidden()->default(0),
+                                Select::make('category_id')
+                                ->relationship('category','title')
+                                ->searchable()
+                                ->default(11)
+                                ->preload()
+                              //  ->getSearchResultsUsing(fn (string $search) => Category::where('title', 'like', "%{$search}%")->limit(50)->pluck('title', 'id'))
+                                ->label('Category')
+
+                                ->required(),
+
+                            ])
                         ]),
             ]);
     }

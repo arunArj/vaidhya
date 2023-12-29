@@ -103,13 +103,13 @@
                 Performa Bill
               </a>
               <div class="flex justify-between">
-                <span class="text-gray-500 text-sm">Yet to be received:</span>
-                <span class="text-gray-800">$100</span>
+                <span class="text-gray-500 text-sm">Total</span>
+                <span class="text-gray-800">{{$record->getTotalIPBillAmount()}}</span>
               </div>
-              <div class="flex justify-between">
+              {{-- <div class="flex justify-between">
                 <span class="text-gray-500 text-sm">Already received:</span>
                 <span class="text-gray-800">$100</span>
-              </div>
+              </div> --}}
             </li>
             <li class="py-3">
               <a href="/lab-bill" class="block text-blue-500 font-semibold hover:underline">

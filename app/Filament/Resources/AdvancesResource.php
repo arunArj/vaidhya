@@ -39,7 +39,8 @@ class AdvancesResource extends Resource
                     ->schema([
                         Select::make('category_id')
                         ->relationship('category','title')
-                        ->default('Direct Income')
+                        ->searchable()
+                        ->preload()
                         ->label('Category')
                         ->required(),
                         Forms\Components\TextInput::make('purpose')

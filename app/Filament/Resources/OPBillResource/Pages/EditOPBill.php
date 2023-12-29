@@ -27,7 +27,7 @@ class EditOPBill extends EditRecord
     {
 
         $patient = Patients::find($this->data['patients_id']);
-        //$cashbook = IncomeExpense::where() $this->record->id;
+
         $total = 0;
         foreach($this->data['fees'] as $key=>$item ){
 
