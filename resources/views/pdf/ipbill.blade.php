@@ -59,16 +59,19 @@
 
 
                 <tr style="border-bottom: 1px solid black;">
-                   <td style="text-align: center    ">{{++$key}}</td>
-                   <td style="text-align: center    ">{{$item['title']}}</td>
-                   <td style="text-align: center    ">{{$item['quantity']}}</td>
-                   <td style="text-align: center    ">{{$item['fee']}}</td>
+                   <td style="text-align: right    ">{{++$key}}</td>
+                   <td style="text-align: right    ">{{$item['title']}}</td>
+                   <td style="text-align: right    ">{{$item['quantity']}}</td>
+                   <td style="text-align: right    ">{{$item['fee']}}</td>
                 </tr>
                 @endforeach
-
+                <tr style="border-bottom: 1px solid black;">
+                    <td colspan="2" style="text-align: center    ">Refund :</td>
+                    <td style="text-align: right" colspan="2">-{{$refund}}</td>
+                </tr>
                 <tr style="border-bottom: 1px solid black;">
                     <td colspan="2" style="text-align: center    ">Grand Total :</td>
-                    <td style="text-align: center" colspan="2">{{$total}}</td>
+                    <td style="text-align: right" colspan="2">{{$amount}}</td>
                 </tr>
             </tbody>
         </table>

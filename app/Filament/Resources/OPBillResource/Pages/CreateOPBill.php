@@ -53,7 +53,7 @@ class CreateOPBill extends CreateRecord
        $this->data['fees'] = $out;
        $this->data['cashbook']['amount'] =  $sum - $this->data['cashbook']['refund'] ;
        $this->data['total'] =  $sum;
-       $this->data['cashbook']['purpose'] = 'ipbill-'.$this->data['bill_no'];
+       $this->data['cashbook']['purpose'] = 'performa-'.$this->data['bill_no'];
 
    return $this->data;
 

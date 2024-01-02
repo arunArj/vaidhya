@@ -10,6 +10,7 @@ use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -78,11 +79,36 @@ class PerformaBillsResource extends Resource
                     ]),
                     Card::make()
                     ->schema([
-                        TextInput::make('refund')->nullable(),
-                        TextInput::make('refund_note')
-                        ->label('Refound note')
-                        ->nullable(),
-                        TextInput::make('payment_note')->nullable(),
+                        Fieldset::make('payment')
+                        ->relationship('cashbook')
+                        ->schema([
+                            TextInput::make('refund')->nullable(),
+                            Select::make('type')
+                            ->options(
+                                [
+                                    '0'=>'Income'
+                                ]
+                            )
+                            ->disabled()
+                            ->default(0)
+                            ->required(),
+                            TextInput::make('refund_note')
+                            ->label('Refound note')
+                            ->nullable(),
+                            TextInput::make('payment_note')->nullable(),
+                            TextInput::make('purpose')->default('performa'),
+                            TextInput::make('amount')->hidden()->default(0),
+                            Select::make('category_id')
+                            ->relationship('category','title')
+                            ->searchable()
+                            ->default(11)
+                            ->preload()
+                          //  ->getSearchResultsUsing(fn (string $search) => Category::where('title', 'like', "%{$search}%")->limit(50)->pluck('title', 'id'))
+                            ->label('Category')
+
+                            ->required(),
+
+                        ])
                     ]),
             ]);
     }

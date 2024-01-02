@@ -47,20 +47,21 @@ class EditOPBill extends EditRecord
              }
             $out[] =['medical_tests_id'=>$tests->id,'quantity'=>$this->data['fees'][$key]['quantity'],'fee'=>$fee];
             $total = $total +( $fee*$this->data['fees'][$key]['quantity']);
+           // dd($fee*$this->data['fees'][$key]['quantity']);
        }
 
-    if($this->record->refund){
-        $total -= $this->record->refund;
-    }
-       $this->data['fees'] = $out;
-       $this->data['total'] = $total;
+       //$this->data['fees'] = $out;
+      // $this->data['total'] = $total;
        $this->record['total'] = $total;
        $this->record['fees']=$out;
+
+    if($this->record->cashbook['refund']){
+        $total -= $this->record->cashbook['refund'];
+    }
        $this->record->cashbook['amount'] = $total;
-       $this->record->cashbook['refund'] =  $this->data['refund'];
-       $this->record->cashbook['refund_note'] =  $this->data['refund_note'];
-       $this->record->cashbook['payment_note'] =  $this->data['payment_note'];
+
+       $this->record->save();
        $this->record->cashbook->save();
-      ;
+
     }
 }
